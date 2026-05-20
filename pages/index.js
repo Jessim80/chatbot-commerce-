@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
 const CONFIG = {
-  nomCommerce: "Chez les DERROUICHE",
+  nomCommerce: "Chez Marcel",
   typeCommerce: "restaurant",
   horaires: "Lun-Sam 12h-14h30 et 19h-22h30",
   adresse: "12 rue de la Paix, 75001 Paris",
