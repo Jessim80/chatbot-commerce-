@@ -2,7 +2,7 @@
 
 const CONFIG = {
   // ── INFOS DU COMMERCE ──────────────────────────────────
-  nomCommerce:   "Chez Marcel",
+  nomCommerce:   "Chez les DERROUICHE",
   typeCommerce:  "restaurant",
   ville:         "Paris",
   horaires:      "Lun-Sam 12h-14h30 et 19h-22h30, Dimanche fermé",
