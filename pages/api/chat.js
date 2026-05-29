@@ -1,14 +1,23 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Méthode non autorisée" });
 
-  const { messages, config } = req.body;
+  const { messages, config, estOuvert } = req.body;
 
   const systemPrompt = `Tu es l'assistant virtuel de ${config.nomCommerce}, un(e) ${config.typeCommerce}.
 Horaires : ${config.horaires}
 Adresse : ${config.adresse}
 Téléphone : ${config.telephone}
 Services : ${config.services}
-Réponds en français, de façon chaleureuse et concise (2-3 phrases max).`;
+Statut actuel : ${estOuvert ? "Ouvert" : "Fermé"}
+
+Règles importantes :
+- Détecte automatiquement la langue du client et réponds TOUJOURS dans sa langue
+- Si le client écrit en arabe, réponds en arabe
+- Si le client écrit en anglais, réponds en anglais
+- Si le client écrit en espagnol, réponds en espagnol
+- Par défaut réponds en français
+- Sois chaleureux et concis (2-3 phrases max)
+- Si on te demande une réservation, demande le nom, la date et l'heure`;
 
   try {
     const response = await fetch("https://api.mistral.ai/v1/chat/completions", {
