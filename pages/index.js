@@ -27,6 +27,7 @@ const sendMessage = async (text) => {
     if (msgText === "📞 Appeler maintenant") {
       window.location.href = `tel:${CONFIG.telephone}`;
       return;
+      }
     const userMsg = { role: "user", content: msgText };
     const newMessages = [...messages, userMsg];
     setMessages(newMessages);
