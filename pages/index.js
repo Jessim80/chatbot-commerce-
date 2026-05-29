@@ -21,13 +21,13 @@ export default function Chatbot() {
 
   useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, loading]);
 
-const sendMessage = async (text) => {
+  const sendMessage = async (text) => {
     const msgText = text || input;
     if (!msgText.trim() || loading) return;
     if (msgText === "📞 Appeler maintenant") {
       window.location.href = `tel:${CONFIG.telephone}`;
       return;
-      }
+    }
     const userMsg = { role: "user", content: msgText };
     const newMessages = [...messages, userMsg];
     setMessages(newMessages);
