@@ -53,13 +53,33 @@ export default function Chatbot() {
       ajouterMessage("assistant", `Super ! ⏰ Et à quelle heure ? (ex: 14h30)`);
       return true;
     }
-    if (rdvEtape === "heure") {
-      const data = { ...rdvData, heure: texte };
+if (rdvEtape === "heure") {
+      setRdvData(prev => ({ ...prev, heure: texte }));
+      setRdvEtape("email");
+      ajouterMessage("assistant", `Parfait ! 📧 Et quel est votre email pour la confirmation ?`);
+      return true;
+    }
+    if (rdvEtape === "email") {
+      const data = { ...rdvData, email: texte };
       setRdvEtape(null);
       setRdvData({});
-      const msgWhatsApp = `Bonjour ! Je voudrais réserver chez ${CONFIG.nomCommerce}.\n\n👤 Nom : ${data.nom}\n📅 Date : ${data.date}\n⏰ Heure : ${data.heure}\n\nMerci !`;
+      
+      const msgWhatsApp = `Bonjour ! Je voudrais réserver chez ${CONFIG.nomCommerce}.\n\n👤 Nom : ${data.nom}\n📅 Date : ${data.date}\n⏰ Heure : ${data.heure}\n📧 Email : ${data.email}\n\nMerci !`;
       const urlWhatsApp = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msgWhatsApp)}`;
-      ajouterMessage("assistant", `Parfait ! Cliquez sur le bouton ci-dessous pour confirmer votre réservation sur WhatsApp 👇`);
+      
+      fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          email: data.email,
+          nom: data.nom,
+          commerce: CONFIG.nomCommerce,
+          date: data.date,
+          heure: data.heure
+        }),
+      }).catch(err => console.log("Email"));
+      
+      ajouterMessage("assistant", `Parfait ! Un email de confirmation a été envoyé à ${data.email}. Cliquez ci-dessous pour confirmer sur WhatsApp 👇`);
       setTimeout(() => {
         setMessages(prev => [...prev, { role: "assistant", content: `__WA__${urlWhatsApp}` }]);
       }, 500);
