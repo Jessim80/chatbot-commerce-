@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 const CONFIG = {
   nomCommerce: "Chez JESSIM",
   typeCommerce: "restaurant",
-  horaires: "Lun-Sam 12h-14h30 et 19h-22h30",
+  horaires: "Lun-Sam 8h-18h30 et 19h-22h30",
   adresse: "12 rue de la Paix, 75001 Paris",
   telephone: "0615486760",
   whatsapp: "33615486760",
@@ -11,7 +11,7 @@ const CONFIG = {
   avatar: "👨‍🍳",
   couleurAccent: "#e94560",
   quickReplies: ["Horaires ?", "Prendre rendez-vous", "Tarifs ?", "📞 Appeler maintenant"],
-  heuresOuverture: { lundi: [12, 22], mardi: [12, 22], mercredi: [12, 22], jeudi: [12, 22], vendredi: [12, 22], samedi: [12, 22], dimanche: null },
+  heuresOuverture: { lundi: [8, 22], mardi: [8, 22], mercredi: [8, 22], jeudi: [8, 22], vendredi: [8, 22], samedi: [8, 22], dimanche: null },
 };
 
 const estOuvert = () => {
